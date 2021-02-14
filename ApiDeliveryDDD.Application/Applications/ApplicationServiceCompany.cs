@@ -35,7 +35,8 @@ namespace ApiDeliveryDDD.Application.Applications
 
         public IEnumerable<CompanyDto> GetAll()
         {
-            return _mapper.Map<IEnumerable<CompanyDto>>(_service.GetAll());
+            var result = _service.GetAll();
+            return _mapper.Map<IEnumerable<CompanyDto>>(result);
         }
 
         public CompanyDto GetById(int id)

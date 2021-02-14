@@ -37,7 +37,9 @@ namespace ApiDeliveryDDD.API
         {
             var connection = Configuration["SqlConnection:SqlConnectionString"];
             services.AddDbContext<SqlContext>(options => options.UseSqlServer(connection));
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddAutoMapper(typeof(AutoMapping));
             services.AddScoped<IApplicationServiceClient, ApplicationServiceClient>();
             services.AddScoped<IRepositoryClient, RepositoryClient>();

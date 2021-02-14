@@ -17,12 +17,16 @@ namespace ApiDeliveryDDD.Infrastructure.Data.Configurations
             builder.Property(p => p.Status).IsRequired();
 
             builder.HasOne(h => h.Client)
-                .WithMany(w => w.Deliveries)
-                .HasForeignKey(h => h.ClientId);
+                   .WithMany(w => w.Deliveries)
+                   .HasForeignKey(h => h.ClientId);
 
             builder.HasOne(h => h.Employee)
-               .WithMany()
-               .HasForeignKey(h => h.EmployeeId);
+                   .WithMany()
+                   .HasForeignKey(h => h.EmployeeId);
+
+            builder.HasOne(h => h.Company)
+                .WithMany()
+                .HasForeignKey(h => h.CompanyId);
         }
     }
 }

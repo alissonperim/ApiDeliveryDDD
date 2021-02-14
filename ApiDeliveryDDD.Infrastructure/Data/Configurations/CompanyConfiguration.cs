@@ -18,6 +18,8 @@ namespace ApiDeliveryDDD.Infrastructure.Data.Configurations
             builder.Property(p => p.PhoneNumber).IsRequired();
             builder.Property(p => p.Address).IsRequired();
             builder.Property(p => p.Email);
+
+
         }
     }
 }

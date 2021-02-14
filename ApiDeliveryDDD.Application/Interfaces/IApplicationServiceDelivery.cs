@@ -4,7 +4,12 @@ using System.Collections.Generic;
 
 namespace ApiDeliveryDDD.Application.Interfaces
 {
-    public interface IApplicationServiceDelivery : IApplicationServiceBase<Delivery>
+    public interface IApplicationServiceDelivery
     {
+        DeliveryDto Add(DeliveryDto deliveryDto);
+        DeliveryDto Update(DeliveryDto deliveryDto);
+        bool Remove(int id);
+        IEnumerable<DeliveryDto> GetAll();
+        DeliveryDto GetById(int id);
     }
 }

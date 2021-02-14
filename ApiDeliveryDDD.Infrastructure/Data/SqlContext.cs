@@ -3,6 +3,7 @@ using ApiDeliveryDDD.Infrastructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -16,6 +17,7 @@ namespace ApiDeliveryDDD.Infrastructure.Data
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
         {
+            
         }
 
         public DbSet<Client> Clients { get; set; }
@@ -27,6 +29,7 @@ namespace ApiDeliveryDDD.Infrastructure.Data
         {
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new DeliveryConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 

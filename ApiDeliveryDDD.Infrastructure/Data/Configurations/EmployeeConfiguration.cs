@@ -13,6 +13,7 @@ namespace ApiDeliveryDDD.Infrastructure.Data.Configurations
         {
             builder.Property(p => p.Id).IsRequired();
             builder.Property(p => p.Name).IsRequired();
+            builder.Property(p => p.CompanyId).IsRequired();
             builder.Property(p => p.LastName).IsRequired();
             builder.Property(p => p.Cpf).IsRequired();
             builder.Property(p => p.PhoneNumber).IsRequired();

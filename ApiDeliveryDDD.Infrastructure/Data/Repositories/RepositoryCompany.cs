@@ -16,10 +16,5 @@ namespace ApiDeliveryDDD.Infrastructure.Data.Repositories
             SetInclude(s => s.Include(i => i.Employees));
         }
 
-        //public override IEnumerable<Company> GetAll()
-        //{
-        //    return _sqlContext.Set<Company>().ToList();
-        //            //.Include(i => i.Employees).ToList();
-        //}
     }
 }

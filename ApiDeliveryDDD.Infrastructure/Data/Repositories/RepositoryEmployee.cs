@@ -12,6 +12,7 @@ namespace ApiDeliveryDDD.Infrastructure.Data.Repositories
         public RepositoryEmployee(SqlContext sqlContext) : base(sqlContext)
         {
             _sqlContext = sqlContext;
+            SetInclude(s => s.Include(i => i.Company));
         }
     }
 }
