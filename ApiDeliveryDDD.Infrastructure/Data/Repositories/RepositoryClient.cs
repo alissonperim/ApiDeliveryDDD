@@ -3,6 +3,7 @@ using ApiDeliveryDDD.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Infrastructure.Data.Repositories
 {
@@ -15,9 +16,9 @@ namespace ApiDeliveryDDD.Infrastructure.Data.Repositories
             _sqlContext = sqlContext;
         }
 
-        public override IEnumerable<Client> GetAll()
+        public override async Task<IEnumerable<Client>> GetAll()
         {
-            return _sqlContext.Set<Client>().Include(i => i.Deliveries).ToList();
+            return await _sqlContext.Set<Client>().Include(i => i.Deliveries).ToListAsync();
         }
     }
 }

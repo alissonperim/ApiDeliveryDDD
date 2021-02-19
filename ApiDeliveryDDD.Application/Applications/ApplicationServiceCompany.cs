@@ -6,6 +6,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Application.Applications
 {
@@ -19,12 +20,12 @@ namespace ApiDeliveryDDD.Application.Applications
             _service = service;
             _mapper = mapper;
         }
-        public CompanyDto Add(CompanyDto companyDto)
+        public async Task<CompanyDto> Add(CompanyDto companyDto)
         {
             try
             {
                 var company = _mapper.Map<Company>(companyDto);
-                var result = _service.Add(company);
+                var result = await _service.Add(company);
                 return _mapper.Map<CompanyDto>(result);
             }
             catch (Exception ex)
@@ -33,22 +34,24 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public IEnumerable<CompanyDto> GetAll()
+        public async Task<IEnumerable<CompanyDto>> GetAll()
         {
-            var result = _service.GetAll();
+            var result = await _service.GetAll();
             return _mapper.Map<IEnumerable<CompanyDto>>(result);
         }
 
-        public CompanyDto GetById(int id)
+        public async Task<CompanyDto> GetById(int id)
         {
-            return _mapper.Map<CompanyDto>(_service.GetById(id));
+            var result = await _service.GetById(id);
+            return _mapper.Map<CompanyDto>(result);
         }
 
-        public bool Remove(int id)
+        public async Task<bool> Remove(CompanyDto companyDto)
         {
             try
             {
-                return _service.Remove(id);
+                var company = _mapper.Map<Company>(companyDto);
+                return await _service.Remove(company);
             }
             catch (Exception ex)
             {
@@ -56,12 +59,12 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public CompanyDto Update(CompanyDto companyDto)
+        public async Task<CompanyDto> Update(CompanyDto companyDto)
         {
             try
             {
                 var company = _mapper.Map<Company>(companyDto);
-                var result = _service.Update(company);
+                var result = await _service.Update(company);
 
                 return _mapper.Map<CompanyDto>(result);
             }

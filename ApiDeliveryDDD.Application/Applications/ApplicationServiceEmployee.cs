@@ -6,6 +6,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Application.Applications
 {
@@ -20,12 +21,12 @@ namespace ApiDeliveryDDD.Application.Applications
             _mapper = mapper;
         }
 
-        public EmployeeDto Add(EmployeeDto employeeDto)
+        public async Task<EmployeeDto> Add(EmployeeDto employeeDto)
         {
             try
             {
                 var employee = _mapper.Map<Employee>(employeeDto);
-                var result = _service.Add(employee);
+                var result = await _service.Add(employee);
                 return _mapper.Map<EmployeeDto>(result);
             }
             catch (Exception ex)
@@ -34,21 +35,24 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public IEnumerable<EmployeeDto> GetAll()
+        public async Task<IEnumerable<EmployeeDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<EmployeeDto>>(_service.GetAll());
+            var result = await _service.GetAll();
+            return _mapper.Map<IEnumerable<EmployeeDto>>(result);
         }
 
-        public EmployeeDto GetById(int id)
+        public async Task<EmployeeDto> GetById(int id)
         {
-            return _mapper.Map<EmployeeDto>(_service.GetById(id));
+            var result = await _service.GetById(id);
+            return _mapper.Map<EmployeeDto>(result);
         }
 
-        public bool Remove(int id)
+        public async Task<bool> Remove(EmployeeDto employeeDto)
         {
             try
             {
-                return _service.Remove(id);
+                var employee = _mapper.Map<Employee>(employeeDto);
+                return await _service.Remove(employee);
             }
             catch (Exception ex)
             {
@@ -56,12 +60,12 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public EmployeeDto Update(EmployeeDto employeeDto)
+        public async Task<EmployeeDto> Update(EmployeeDto employeeDto)
         {
             try
             {
                 var client = _mapper.Map<Employee>(employeeDto);
-                var result = _service.Update(client);
+                var result = await _service.Update(client);
 
                 return _mapper.Map<EmployeeDto>(result);
             }

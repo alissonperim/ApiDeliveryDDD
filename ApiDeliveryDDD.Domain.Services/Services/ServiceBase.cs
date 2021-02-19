@@ -2,6 +2,7 @@
 using ApiDeliveryDDD.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Domain.Services.Services
 {
@@ -13,11 +14,11 @@ namespace ApiDeliveryDDD.Domain.Services.Services
         {
             _repository = repository;
         }
-        public T Add(T obj)
+        public async Task<T> Add(T obj)
         {
             try
             {
-                _repository.Add(obj);
+                var response = await _repository.Add(obj);
                 return obj;
             }
             catch(Exception ex)
@@ -26,21 +27,21 @@ namespace ApiDeliveryDDD.Domain.Services.Services
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return _repository.GetAll();
+            return  await _repository.GetAll();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetById(int id)
         {
-            return _repository.GetById(id);
+            return await _repository.GetById(id);
         }
 
-        public bool Remove(int id)
+        public async Task<bool> Remove(T obj)
         {
             try
             {
-                return _repository.Remove(id);
+                return await _repository.Remove(obj);
             }
             catch(Exception ex)
             {
@@ -48,11 +49,11 @@ namespace ApiDeliveryDDD.Domain.Services.Services
             }
         }
 
-        public T Update(T obj)
+        public async Task<T> Update(T obj)
         {
             try
             {
-                _repository.Update(obj);
+                await _repository.Update(obj);
                 return obj;
             }
             catch(Exception ex)

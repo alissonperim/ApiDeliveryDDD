@@ -1,15 +1,16 @@
 ﻿using ApiDeliveryDDD.Application.Dtos;
 using ApiDeliveryDDD.Domain.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Application.Interfaces
 {
     public interface IApplicationServiceClient
     {
-        ClientDto Add(ClientDto clientDto);
-        ClientDto Update(ClientDto clientDto);
-        bool Remove(int id);
-        IEnumerable<ClientDto> GetAll();
-        ClientDto GetById(int id);
+        Task<ClientDto> Add(ClientDto clientDto);
+        Task<ClientDto> Update(ClientDto clientDto);
+        Task<bool> Remove(ClientDto clientDto);
+        Task<IEnumerable<ClientDto>> GetAll();
+        Task<ClientDto> GetById(int id);
     }
 }

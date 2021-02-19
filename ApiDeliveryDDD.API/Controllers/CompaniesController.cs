@@ -20,35 +20,35 @@ namespace ApiDeliveryDDD.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CompanyDto model)
+        public async Task<IActionResult> Post([FromBody] CompanyDto model)
         {
-            var result = _service.Add(model);
+            var result = await _service.Add(model);
             return Ok(result);
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] CompanyDto model)
+        public async Task<IActionResult> Put([FromBody] CompanyDto model)
         {
-            var result = _service.Update(model);
+            var result = await _service.Update(model);
             return Ok(result);
         }
 
         [HttpGet]
-        public IEnumerable<CompanyDto> Get()
+        public async Task<IEnumerable<CompanyDto>> Get()
         {
-            return _service.GetAll();
+            return await _service.GetAll();
         }
 
         [HttpGet("{id}")]
-        public CompanyDto Get(int id)
+        public async Task<CompanyDto> Get(int id)
         {
-            return _service.GetById(id);
+            return await _service.GetById(id);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(CompanyDto companyDto)
         {
-            return Ok(_service.Remove(id));
+            return Ok(await _service.Remove(companyDto));
         }
     }
 }

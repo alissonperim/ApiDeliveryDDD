@@ -6,6 +6,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Application.Applications
 {
@@ -19,12 +20,12 @@ namespace ApiDeliveryDDD.Application.Applications
             _service = service;
             _mapper = mapper;
         }
-        public DeliveryDto Add(DeliveryDto deliveryDto)
+        public async Task<DeliveryDto> Add(DeliveryDto deliveryDto)
         {
             try
             {
                 var delivery = _mapper.Map<Delivery>(deliveryDto);
-                var result = _service.Add(delivery);
+                var result = await _service.Add(delivery);
                 return _mapper.Map<DeliveryDto>(result);
             }
             catch(Exception ex)
@@ -33,23 +34,24 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public IEnumerable<DeliveryDto> GetAll()
+        public async Task<IEnumerable<DeliveryDto>> GetAll()
         {
-            var result = _service.GetAll();
+            var result = await _service.GetAll();
             return _mapper.Map<IEnumerable<DeliveryDto>>(result);
         }
 
-        public DeliveryDto GetById(int id)
+        public async Task<DeliveryDto> GetById(int id)
         {
-            var result = _service.GetById(id);
+            var result = await _service.GetById(id);
             return _mapper.Map<DeliveryDto>(result);
         }
 
-        public bool Remove(int id)
+        public async Task<bool> Remove(DeliveryDto deliveryDto)
         {
             try
             {
-                return _service.Remove(id);
+                var delivery = _mapper.Map<Delivery>(deliveryDto);
+                return await _service.Remove(delivery);
             }
             catch(Exception ex)
             {
@@ -57,12 +59,12 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public DeliveryDto Update(DeliveryDto deliveryDto)
+        public async Task<DeliveryDto> Update(DeliveryDto deliveryDto)
         {
             try
             {
                 var delivery = _mapper.Map<Delivery>(deliveryDto);
-                var result = _service.Update(delivery);
+                var result = await _service.Update(delivery);
                 return _mapper.Map<DeliveryDto>(result);
             }
             catch(Exception ex)

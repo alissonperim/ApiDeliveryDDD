@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Infrastructure.Data
 {
@@ -17,7 +19,7 @@ namespace ApiDeliveryDDD.Infrastructure.Data
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Client> Clients { get; set; }
@@ -33,7 +35,23 @@ namespace ApiDeliveryDDD.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public override int SaveChanges()
+        //public override int SaveChanges()
+        //{
+        //    foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("CreationDate") != null))
+        //    {
+        //        if (entry.State == EntityState.Added)
+        //        {
+        //            entry.Property("CreationDate").CurrentValue = DateTime.Now;
+        //        }
+        //        if (entry.State == EntityState.Modified)
+        //        {
+        //            entry.Property("AlterationDate").CurrentValue = DateTime.Now;
+        //        }
+        //    }
+        //    return base.SaveChanges();
+        //}
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("CreationDate") != null))
             {
@@ -46,7 +64,8 @@ namespace ApiDeliveryDDD.Infrastructure.Data
                     entry.Property("AlterationDate").CurrentValue = DateTime.Now;
                 }
             }
-            return base.SaveChanges();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
+
     }
 }

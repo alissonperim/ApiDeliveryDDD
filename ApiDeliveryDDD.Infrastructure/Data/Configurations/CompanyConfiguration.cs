@@ -20,9 +20,6 @@ namespace ApiDeliveryDDD.Infrastructure.Data.Configurations
             builder.Property(p => p.Email);
 
 
-            builder.HasMany(h => h.Employees)
-                .WithOne()
-                .HasForeignKey(h => h.CompanyId);
         }
     }
 }

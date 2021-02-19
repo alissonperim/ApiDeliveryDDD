@@ -6,6 +6,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ApiDeliveryDDD.Application.Applications
 {
@@ -20,12 +21,12 @@ namespace ApiDeliveryDDD.Application.Applications
             _mapper = mapper;
         }
 
-        public ClientDto Add(ClientDto clientDto)
+        public async Task<ClientDto> Add(ClientDto clientDto)
         {
             try
             {
                 var client = _mapper.Map<Client>(clientDto);
-                var result = _serviceClient.Add(client);
+                var result = await _serviceClient.Add(client);
                 return _mapper.Map<ClientDto>(result);
             }
             catch(Exception ex)
@@ -34,21 +35,24 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public IEnumerable<ClientDto> GetAll()
+        public async Task<IEnumerable<ClientDto>> GetAll()
         {
-            return _mapper.Map<IEnumerable<ClientDto>>(_serviceClient.GetAll());
+            var result = await _serviceClient.GetAll();
+            return _mapper.Map<IEnumerable<ClientDto>>(result);
         }
 
-        public ClientDto GetById(int id)
+        public async Task<ClientDto> GetById(int id)
         {
-            return _mapper.Map<ClientDto>(_serviceClient.GetById(id));
+            var result = await _serviceClient.GetById(id);
+            return _mapper.Map<ClientDto>(result);
         }
 
-        public bool Remove(int id)
+        public async Task<bool> Remove(ClientDto clientDto)
         {
             try
             {
-                return _serviceClient.Remove(id);
+                var client = _mapper.Map<Client>(clientDto);
+                return await _serviceClient.Remove(client);
             }
             catch(Exception ex)
             {
@@ -56,12 +60,12 @@ namespace ApiDeliveryDDD.Application.Applications
             }
         }
 
-        public ClientDto Update(ClientDto clientDto)
+        public async Task<ClientDto> Update(ClientDto clientDto)
         {
             try
             {
                 var client = _mapper.Map<Client>(clientDto);
-                var result =_serviceClient.Update(client);
+                var result = await _serviceClient.Update(client);
 
                 return _mapper.Map<ClientDto>(result);
             }
