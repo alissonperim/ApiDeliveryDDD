@@ -35,22 +35,6 @@ namespace ApiDeliveryDDD.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        //public override int SaveChanges()
-        //{
-        //    foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("CreationDate") != null))
-        //    {
-        //        if (entry.State == EntityState.Added)
-        //        {
-        //            entry.Property("CreationDate").CurrentValue = DateTime.Now;
-        //        }
-        //        if (entry.State == EntityState.Modified)
-        //        {
-        //            entry.Property("AlterationDate").CurrentValue = DateTime.Now;
-        //        }
-        //    }
-        //    return base.SaveChanges();
-        //}
-
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("CreationDate") != null))
